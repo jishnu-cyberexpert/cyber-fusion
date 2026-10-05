@@ -1,0 +1,12 @@
+{
+  "host_id": "DEFAULT_HOST",
+  "state": "LEARNING",
+  "target_events": 50,
+  "events_observed": 0,
+  "calibrated_threshold": -0.1,
+  "learning_started_at": 1791099875.9726746,
+  "enforcing_since": null,
+  "known_lineage": [],
+  "known_binaries": [],
+  "observed_vectors": []
+}

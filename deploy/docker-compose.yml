@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  cyberfusion-backend:
+    build:
+      context: ../
+      dockerfile: deploy/Dockerfile.backend
+    container_name: cyberfusion-backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+      - "1514:1514/udp"
+    environment:
+      - CYBERFUSION_MODE=LIVE
+      - DATABASE_URL=sqlite+aiosqlite:///./cyberfusion_enterprise.db
+      - SECRET_KEY=cyberfusion-enterprise-jwt-secret-key-production-grade-2026-xdr
+      - AGENT_AUTH_TOKEN=cf-agent-sec-token-998822-live-auth
+      - WORKER_CONCURRENCY=16
+    volumes:
+      - cyberfusion_data:/app/data
+
+  cyberfusion-frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    container_name: cyberfusion-frontend
+    restart: unless-stopped
+    ports:
+      - "5173:80"
+    depends_on:
+      - cyberfusion-backend
+
+volumes:
+  cyberfusion_data:
